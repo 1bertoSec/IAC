@@ -13,7 +13,14 @@
         name: 
           - django
           - djangorestframework
-
+    - name: Iniciando o projeto
+      shell: '. /home/ubuntu/tcc/venv/bin/activate; django-admin startproject setup /home/ubuntu/tcc/'
+    - name: Alterando host dos settings
+      lineinfile:  #alteração em uma linha especifica de um arquivo em texto
+        path: /home/ubuntu/tcc/setup/settings.py
+        regexp: 'ALLOWED_HOSTS' 
+        line: 'ALLOWED_HOSTS = ["*"]'
+        backrefs: yes
 
 
 # ansible-playbook playbook.yml -u ubuntu --private-key iac-alura.pem -i hosts.yml
