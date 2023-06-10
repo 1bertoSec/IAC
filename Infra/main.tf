@@ -19,11 +19,15 @@ resource "aws_instance" "app_server" {
   instance_type = var.instancia
   key_name = var.chave
   tags = {
-    Name = "Terraform Ansible Python"
+    Name = "Terraform Ansible Python2"
   }
 }
 
 resource "aws_key_pair" "chaveSSH" {
   key_name = var.chave
   public_key = file("${var.chave}.pub")
+}
+
+output "IP_publico" {
+  value = aws_instance.app_server.public_ip
 }

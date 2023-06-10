@@ -13,8 +13,13 @@
         name: 
           - django
           - djangorestframework
+    - name: Verificando se o projeto existe
+      stat: 
+        path: /home/ubuntu/tcc/setup/settings.py
+      register: projetoexiste
     - name: Iniciando o projeto
       shell: '. /home/ubuntu/tcc/venv/bin/activate; django-admin startproject setup /home/ubuntu/tcc/'
+      when: not projetoexiste.stat.exists
     - name: Alterando host dos settings
       lineinfile:  #alteração em uma linha especifica de um arquivo em texto
         path: /home/ubuntu/tcc/setup/settings.py
@@ -23,4 +28,4 @@
         backrefs: yes
 
 
-# ansible-playbook playbook.yml -u ubuntu --private-key iac-alura.pem -i hosts.yml
+# ansible-playbook env/Dev/playbook.yml -u ubuntu --private-key env/Dev/Iac-DEV.pem -i hosts.yml
